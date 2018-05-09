@@ -14,16 +14,26 @@ public class Article {
     private String content;
     private Date pubDate;
     private int clicks;
-    private String image;
+    private int imageId;
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+
 
     public Article() {
     }
 
-    public Article(int categoryId, String title, String content, String image) {
+    public Article(int categoryId, String title, String content, int imageId) {
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
-        this.image = image;
+        this.imageId = imageId;
     }
 
     public int getArticleId() {
@@ -82,12 +92,6 @@ public class Article {
         this.clicks = clicks;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
 }

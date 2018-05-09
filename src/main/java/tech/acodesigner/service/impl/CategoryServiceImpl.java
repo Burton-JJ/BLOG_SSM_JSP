@@ -19,10 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Override
     public List<CategoryDto> getCategories() {
         return categoryDao.getCategories();
     }
 
+    @Override
     public OperationResult<Category> getCategory(int categoryId) {
         OperationResult<Category> or = new OperationResult<Category>();
         Category category = categoryDao.getCategoryByCategoryId(categoryId);
@@ -36,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
         return or;
     }
 
+    @Override
     public OperationResult saveCategory(String categoryName) {
         OperationResult or = new OperationResult();
         int result = categoryDao.saveCategory(categoryName);
@@ -49,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
         return or;
     }
 
+    @Override
     public OperationResult updateCategory(Category category) {
         OperationResult or = new OperationResult();
         int result = categoryDao.updateCategory(category);
@@ -62,6 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
         return or;
     }
 
+    @Override
     public OperationResult deleteCategory(int categoryId) {
         OperationResult or = new OperationResult();
         int result = categoryDao.deleteCategory(categoryId);

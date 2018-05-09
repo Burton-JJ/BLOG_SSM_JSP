@@ -3,12 +3,13 @@ package tech.acodesigner.entity;
 /**
  * Created by 77239 on 2017/3/28/0028.
  */
+
 public class User {
     private int userId;
     private int userType;
     private String username;
     private String password;
-    private String image;
+    private int imageId;
 
     public User() {
     }
@@ -18,17 +19,17 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password, String image) {
+    public User(String username, String password, int imageId) {
         this.username = username;
         this.password = password;
-        this.image = image;
+        this.imageId = imageId;
     }
 
-    public User(int userId, String username, String password, String image) {
+    public User(int userId, String username, String password,  int imageId) {
         this.userId = userId;
         this.username = username;
         this.password = password;
-        this.image = image;
+        this.imageId = imageId;
     }
 
     public int getUserId() {
@@ -63,11 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public String getImage() {
-        return image;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

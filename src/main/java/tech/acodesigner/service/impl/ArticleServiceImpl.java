@@ -25,14 +25,17 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private RedisDao redisDao;
 
+    @Override
     public List<ArticleDto> searchArticles(String key) {
         return articleDao.getArticlesByKey(key);
     }
 
+    @Override
     public List<ArticleDto> pagination(PageUtil pageUtil) {
-        return articleDao.getArticlesByRange(pageUtil);
+        return articleDao.getArticlesByPage(pageUtil);
     }
 
+    @Override
     public ArticleLiteDto getPreArticle(int articleId) {
         ArticleLiteDto article = articleDao.getPreArticle(articleId);
         if (article == null) {
@@ -42,6 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    @Override
     public ArticleLiteDto getNextArticle(int articleId) {
         ArticleLiteDto article = articleDao.getNextArticle(articleId);
         if (article == null) {
@@ -51,7 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
-    //增加了redis对文章详情缓存
+
+    @Override //增加了redis对文章详情缓存
     public OperationResult<ArticleDto> getArticleById(int articleId) {
         OperationResult<ArticleDto> or = new OperationResult<ArticleDto>();
 
@@ -74,22 +79,27 @@ public class ArticleServiceImpl implements ArticleService {
         return or;
     }
 
+    @Override
     public List<ArticleDto> getArticles() {
         return articleDao.getArticles();
     }
 
+    @Override
     public List<ArticleLiteDto> getArticlesByCategoryId(int categoryId) {
         return articleDao.getArticlesByCategoryId(categoryId);
     }
 
+    @Override
     public List<ArticleLiteDto> getRecentArticles() {
         return articleDao.getRecentArticlesTitle();
     }
 
+    @Override
     public List<ArticleLiteDto> getMostViewedArticles() {
         return articleDao.getArticlesByClicks();
     }
 
+    @Override
     public OperationResult updateArticle(Article article) {
         OperationResult or = new OperationResult();
         int result = articleDao.updateArticle(article);
@@ -103,6 +113,7 @@ public class ArticleServiceImpl implements ArticleService {
         return or;
     }
 
+    @Override
     public OperationResult saveArticle(Article article) {
         OperationResult or = new OperationResult();
         int result = articleDao.saveArticle(article);
@@ -116,6 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
         return or;
     }
 
+    @Override
     public OperationResult deleteArticle(int articleId) {
         OperationResult or = new OperationResult();
         int result = articleDao.deleteArticle(articleId);
@@ -129,6 +141,7 @@ public class ArticleServiceImpl implements ArticleService {
         return or;
     }
 
+    @Override
     public OperationResult addClicks(int articleId) {
         OperationResult or = new OperationResult();
         int result = articleDao.addClicks(articleId);
@@ -142,8 +155,9 @@ public class ArticleServiceImpl implements ArticleService {
         return or;
     }
 
-    public int countArticleNum() {
-        return articleDao.countArticleNum();
+    @Override
+    public int countArticleNum(String factor) {
+        return articleDao.countArticleNum(factor);
     }
 
 }

@@ -44,7 +44,7 @@ public class BlogController {
     @Autowired
     private AboutService aboutService;
 
-    @RequestMapping(value = {"blog", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/blog", "/"}, method = RequestMethod.GET)
     public String showBlogView(HttpServletRequest request, Model model, @RequestParam(value = "page", required = false) String page,
                                @RequestParam(value = "search", required = false) String search) {
         List<ArticleLiteDto> recentArticles = articleService.getRecentArticles();
@@ -57,17 +57,26 @@ public class BlogController {
         if (page == null || page == "") {
             page = "1";
         }
-        PageUtil pageUtil = new PageUtil(Integer.parseInt(page), 4);
+        int pageSize = 4;
+        PageUtil pageUtil = new PageUtil(Integer.parseInt(page), pageSize, search);
         List<ArticleDto> articles = null;
         String pageCode = null;
+        String searchOption = null;
+
         if (search != null && !search.equals("")) {
-            articles = articleService.searchArticles(search);
-            pageCode = this.genPagination(articles.size(), Integer.parseInt(page), 3, "&search=" + search);
+            searchOption = "&search=" + search;
         } else {
-            articles = articleService.pagination(pageUtil);
-            int total = articleService.countArticleNum();
-            pageCode = this.genPagination(total, Integer.parseInt(page), 3, "");
+            searchOption = "";
         }
+
+        //ByRange 根据上面的pageUtil中的page=1,start=0和pagesize取出对应记录
+            articles = articleService.pagination(pageUtil);
+            int articleTotalNum = articleService.countArticleNum(search);
+
+        System.out.println("searchOption = "+searchOption);
+        System.out.println("total = "+articleTotalNum);
+        pageCode = this.genPagination(articleTotalNum, Integer.parseInt(page), pageSize, searchOption);
+
         model.addAttribute("pageCode", pageCode);
         model.addAttribute("articles", articles);
         model.addAttribute("mainPage", "article.jsp");
@@ -78,12 +87,16 @@ public class BlogController {
         int totalPage = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1;
         StringBuffer pageCode = new StringBuffer();
         pageCode.append("<ul class=\"pagination\">");
-        pageCode.append("<li class='waves-effect'><a href='blog?page=1'" + search + "><i class=\"material-icons\">first_page</i></a></li>");
+        //到第一页
+        pageCode.append("<li class='waves-effect'><a href='blog?page=1"+search+"'><i class=\"material-icons\">first_page</i></a></li>");
+        //如果当前W为第一页 则向前一页失效
         if (curPage == 1) {
             pageCode.append("<li class=\"disabled\"><a><i class=\"material-icons\">chevron_left</i></a></li>");
         } else {
+            //r如果当前不是第一页 则向前一页
             pageCode.append("<li class='waves-effect'><a href=\"blog?page=" + (curPage - 1) + search + "\"><i class=\"material-icons\">chevron_left</i></a></li>");
         }
+        //展示的页码最多为5页
         for (int i = curPage - 2; i <= curPage + 2; i++) {
             if (i < 1 || i > totalPage) {
                 continue;
@@ -92,16 +105,19 @@ public class BlogController {
                 pageCode.append("<li class='active waves-effect'><a href='#'>" + i
                         + "</a></li>");
             } else {
-                pageCode.append("<li class='waves-effect'><a href='blog?page=" + i + "'>" + i
+                pageCode.append("<li class='waves-effect'><a href='blog?page=" + i + search+ "'>" + i
                         + "</a></li>");
             }
         }
+        //如果当前W为最后页 则向后一页失效
         if (curPage == totalPage) {
             pageCode.append("<li class='disabled'><a><i class=\"material-icons\">chevron_right</i></a></li>");
         } else {
+            //向后一页
             pageCode.append("<li class='waves-effect'><a href='blog?page=" + (curPage + 1) + search
                     + "'><i class=\"material-icons\">chevron_right</i></a></li>");
         }
+        //到最后一页
         pageCode.append("<li class='waves-effect'><a href='blog?page=" + totalPage + search + "'><i class=\"material-icons\">last_page</i></a></li>");
         pageCode.append("</ul>");
         return pageCode.toString();
@@ -151,16 +167,17 @@ public class BlogController {
         return "blog/blog";
     }
 
-    //归档列表展示
+    //对归档列表展示
     @RequestMapping(value = "/blog/archive", method = RequestMethod.GET)
     public String showArchiveView(Model model) {
+        //文章按日期进行排序
         List<ArticleDto> articles = articleService.getArticles();
         model.addAttribute("articles", articles);
         model.addAttribute("mainPage", "archive.jsp");
         return "blog/blog";
     }
 
-    //对消息的管理
+    //对留言的管理
     @RequestMapping(value = "/blog/message", method = RequestMethod.GET)
     public String showMessageView(Model model) {
         model.addAttribute("articleId", 0);
@@ -168,7 +185,7 @@ public class BlogController {
         return "blog/blog";
     }
 
-    //关于页面的展示
+    //对关于页面的展示
     @RequestMapping(value = "/blog/about", method = RequestMethod.GET)
     public String showAboutView(Model model) {
         AboutDto about = aboutService.getAbout();

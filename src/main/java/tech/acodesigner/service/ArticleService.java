@@ -39,6 +39,6 @@ public interface ArticleService {
 
     public OperationResult addClicks(int articleId);
 
-    public int countArticleNum();
+    public int countArticleNum(String factor);
 
 }

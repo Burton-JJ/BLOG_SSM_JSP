@@ -72,7 +72,7 @@ public class ArticleDaoTest {
 
     @Test
     public void getArticlesByRange() throws Exception {
-        List<ArticleDto> articles = articleDao.getArticlesByRange(new PageUtil(1, 5));
+        List<ArticleDto> articles = articleDao.getArticlesByPage(new PageUtil(1, 5));
         for (ArticleDto article : articles) {
             System.out.println(article);
         }
@@ -109,7 +109,7 @@ public class ArticleDaoTest {
         article.setCategoryId(13);
         article.setTitle("test2");
         article.setContent("test2");
-        article.setImage("test2");
+        article.setImageId(1);
         int result = articleDao.updateArticle(article);
         System.out.println(result);
     }
@@ -121,7 +121,7 @@ public class ArticleDaoTest {
         article.setTitle("test");
         article.setContent("test");
         article.setPubDate(new Date(System.currentTimeMillis()));
-        article.setImage("test");
+        article.setImageId(1);
         int result = articleDao.saveArticle(article);
         System.out.println(result);
     }
@@ -139,8 +139,8 @@ public class ArticleDaoTest {
     }
 
     @Test
-    public void countArticleNum() throws Exception {
-        int result = articleDao.countArticleNum();
+    public void countArticleNum(String factor) throws Exception {
+        int result = articleDao.countArticleNum(factor);
         System.out.println(result);
     }
 

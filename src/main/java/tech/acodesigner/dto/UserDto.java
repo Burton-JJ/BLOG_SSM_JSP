@@ -8,7 +8,28 @@ public class UserDto {
     private int userId;
     private String username;
     private int userType;
-    private String image;
+    private int imageId;
+    private String imageName;
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+
+
+
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
     public int getUserId() {
         return userId;
@@ -34,21 +55,14 @@ public class UserDto {
         this.userType = userType;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     @Override
     public String toString() {
         return "UserDto{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", userType=" + userType +
-                ", image='" + image + '\'' +
+                ", imageId=" + imageId +
+                ", imageName='" + imageName + '\'' +
                 '}';
     }
 }

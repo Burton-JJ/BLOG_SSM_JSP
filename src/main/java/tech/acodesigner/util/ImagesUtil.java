@@ -11,6 +11,7 @@ public class ImagesUtil {
         File imagesFolder = new File(path);
         String[] images = imagesFolder.list();
         return images;
+        //输出文件夹名+文件名 若是底层文件夹 则输出文件名
     }
 
 }

@@ -16,10 +16,12 @@ public class AboutServiceImpl implements AboutService {
     @Autowired
     private ArticleDao articleDao;
 
+    @Override
     public AboutDto getAbout() {
         return articleDao.getAbout();
     }
 
+    @Override
     public OperationResult updateAbout(String content) {
         int result = articleDao.updateAbout(content);
         OperationResult or = new OperationResult();

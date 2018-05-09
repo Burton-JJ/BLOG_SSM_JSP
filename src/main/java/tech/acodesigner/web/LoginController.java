@@ -39,18 +39,21 @@ public class LoginController {
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String checkUser(HttpServletRequest request, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         HttpSession session = request.getSession();
+        //破解密码登录后台先不用MD5加密 不然密码不知道
         User user = new User(request.getParameter("username"), MD5Util.encoderPassword(request.getParameter("password")));
+        //User user = new User(request.getParameter("username"), request.getParameter("password"));
         OperationResult<UserDto> result = userService.checkUser(user);
         if (result.isSuccess()) {
             session.setAttribute("curUser", result.getData());
-            if (result.getData().getUserType() == 0) {
-                return "redirect:/blog";
-            } else {
-                return "redirect:/manage";
-            }
+//            if (result.getData().getUserType() == 0) {
+//                return "redirect:/blog";
+//            } else {
+//                return "redirect:/manage";
+//            }
+            return "redirect:/manage";
         } else {
             attributes.addFlashAttribute("info", result.getInfo());
-            return "redirect:/login";
+            return "redirect:/login";//info为用户名或密码错误
         }
     }
 

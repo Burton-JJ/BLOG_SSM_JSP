@@ -18,6 +18,7 @@ public class LinkServiceImpl implements LinkService {
     @Autowired
     private LinkDao linkDao;
 
+    @Override
     public OperationResult<Link> getLinkById(int linkId) {
         OperationResult<Link> or = new OperationResult<Link>();
         Link link = linkDao.getLinkById(linkId);
@@ -31,10 +32,12 @@ public class LinkServiceImpl implements LinkService {
         return or;
     }
 
+    @Override
     public List<Link> getLinks() {
         return linkDao.getLinks();
     }
 
+    @Override
     public OperationResult saveLink(Link link) {
         OperationResult or = new OperationResult();
         int result = linkDao.saveLink(link);
@@ -48,6 +51,7 @@ public class LinkServiceImpl implements LinkService {
         return or;
     }
 
+    @Override
     public OperationResult updateLink(Link link) {
         OperationResult or = new OperationResult();
         int result = linkDao.updateLink(link);
@@ -61,6 +65,7 @@ public class LinkServiceImpl implements LinkService {
         return or;
     }
 
+    @Override
     public OperationResult deleteLink(int linkId) {
         OperationResult or = new OperationResult();
         int result = linkDao.deleteLink(linkId);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.acodesigner.dao.ImageDao">
+    
+    <insert id="saveImage" parameterType="Image" >
+        INSERT INTO blog_image
+               VALUES (NULL ,#{imageType},#{imageName})
+    </insert>
+
+    <select id="getImageById" parameterType="int" resultType="Image">
+        SELECT *
+        FROM blog_image
+        WHERE imageId=#{imageId}
+    </select>
+
+    <select id="getImageByName" parameterType="String" resultType="Image">
+        SELECT imageId,imageType
+        FROM blog_image
+        WHERE imageName=#{imageName}
+    </select>
+
+    <select id="getImageByType" parameterType="int" resultType="Image">
+        SELECT imageId,imageName
+        FROM blog_image
+        WHERE imageType=#{imageType}
+    </select>
+
+    <delete id="deleteImageById" parameterType="int" >
+        DELETE IGNORE FROM blog_image
+        WHERE imageId=#{imageId}
+    </delete>
+
+    <delete id="deleteImageByName" parameterType="String" >
+        DELETE FROM blog_image
+        WHERE imageName=#{imageName}
+    </delete>
+
+</mapper>

@@ -14,9 +14,18 @@ public class ArticleDto {
     private String content;
     private Date pubDate;
     private int clicks;
-    private String image;
+    private int imageId;
+    private String imageName;
     private Category category;
     private UserDto user;
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
     public int getArticleId() {
         return articleId;
@@ -58,12 +67,12 @@ public class ArticleDto {
         this.clicks = clicks;
     }
 
-    public String getImage() {
-        return image;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public Category getCategory() {
@@ -90,7 +99,8 @@ public class ArticleDto {
                 ", content='" + content + '\'' +
                 ", pubDate=" + pubDate +
                 ", clicks=" + clicks +
-                ", image='" + image + '\'' +
+                ", imageId=" + imageId +
+                ", imageName='" + imageName + '\'' +
                 ", category=" + category +
                 ", user=" + user +
                 '}';

@@ -27,7 +27,7 @@ public interface ArticleDao {
 
     public List<ArticleDto> getArticlesByKey(String key);
 
-    public List<ArticleDto> getArticlesByRange(PageUtil pageUtil);
+    public List<ArticleDto> getArticlesByPage(PageUtil pageUtil);
 
     public List<ArticleLiteDto> getArticlesByClicks();
 
@@ -43,6 +43,6 @@ public interface ArticleDao {
 
     public int addClicks(int articleId);
 
-    public int countArticleNum();
+    public int countArticleNum(String factor);
 
 }

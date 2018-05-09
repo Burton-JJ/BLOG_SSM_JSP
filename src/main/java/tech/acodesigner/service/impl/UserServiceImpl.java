@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDao userDao;
 
+    @Override
     public OperationResult<UserDto> checkUser(User user) {
         OperationResult<UserDto> or = new OperationResult<UserDto>();
         UserDto result = userDao.getUserByUser(user);
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService{
         return or;
     }
 
+    @Override
     public OperationResult registerUser(User user) {
         OperationResult or = new OperationResult();
         int result = userDao.saveUser(user);
@@ -45,10 +47,12 @@ public class UserServiceImpl implements UserService{
         return or;
     }
 
+    @Override
     public List<UserDto> getUsers() {
         return userDao.getUsers();
     }
 
+    @Override
     public OperationResult getUser(int userId) {
         OperationResult or = new OperationResult();
         UserDto user = userDao.getUserByUserId(userId);
@@ -62,6 +66,7 @@ public class UserServiceImpl implements UserService{
         return or;
     }
 
+    @Override
     public OperationResult updateUser(User user) {
         OperationResult or = new OperationResult();
         int result = userDao.updateUser(user);
@@ -75,6 +80,7 @@ public class UserServiceImpl implements UserService{
         return or;
     }
 
+    @Override
     public OperationResult deleteUser(int userId) {
         OperationResult or = new OperationResult();
         int result = userDao.deleteUser(userId);

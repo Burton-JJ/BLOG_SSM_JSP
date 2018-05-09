@@ -33,7 +33,7 @@ public class UserDaoTest {
 
     @Test
     public void saveUser() throws Exception {
-        User user = new User("123", "123", "123");
+        User user = new User("123", "123", 1);
         int result = userDao.saveUser(user);
         System.out.println(result);
     }
