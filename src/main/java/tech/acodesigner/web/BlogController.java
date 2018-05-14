@@ -49,11 +49,19 @@ public class BlogController {
                                @RequestParam(value = "search", required = false) String search) {
         List<ArticleLiteDto> recentArticles = articleService.getRecentArticles();
         List<ArticleLiteDto> mostViewedArticles = articleService.getMostViewedArticles();
-        request.getServletContext().setAttribute("recentArticles", recentArticles);
-        request.getServletContext().setAttribute("mostViewedArticles", mostViewedArticles);
-        List<Link> links = linkService.getLinks();
-        request.getServletContext().setAttribute("links", links);
+        request.getSession().setAttribute("recentArticles", recentArticles);
 
+       //request.getServletContext().setAttribute("recentArticles", recentArticles);有效
+        //recentArticles mostViewedArticles 为多个页面共享的变量 不能放入model等模型变量中 因为最后实在request中 只在一次请求有效
+        //应该放在session 一个用户的会话中 或者servletContent 所有用户共享域中
+        //model.addAttribute("recentArticles", recentArticles);无效
+        request.getSession().setAttribute("mostViewedArticles", mostViewedArticles);
+        //request.getServletContext().setAttribute("mostViewedArticles", mostViewedArticles);
+       // model.addAttribute("mostViewedArticles", mostViewedArticles);
+        List<Link> links = linkService.getLinks();
+        request.getSession().setAttribute("links", links);
+       // request.getServletContext().setAttribute("links", links);
+        //model.addAttribute("links", links);
         if (page == null || page == "") {
             page = "1";
         }

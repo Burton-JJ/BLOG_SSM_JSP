@@ -72,26 +72,28 @@
             <div class="card grey hoverable">
                 <div class="card-content white-text">
                     <P class="flow-text">
-                        访问量：
-                        <script type="text/javascript">
-                            var sc_project = 11378771;
-                            var sc_invisible = 0;
-                            var sc_security = "ef303859";
-                            var sc_text = 2;
-                            var scJsHost = (("https:" == document.location.protocol) ?
-                                "https://secure." : "http://www.");
-                            document.write("<sc" + "ript type='text/javascript' src='" +
-                                scJsHost +
-                                "statcounter.com/counter/counter.js'></" + "script>");
-                        </script>
-                    <noscript>
-                        <div class="statcounter">
-                            <a title="free hitcounter" href="http://statcounter.com/" target="_blank">
-                                <img class="statcounter" src="//c.statcounter.com/11378771/0/ef303859/0/"
-                                     alt="freehit counter">
-                            </a>
-                        </div>
-                    </noscript>
+                        <!-- visitorNum 实在监听器中定义  在拦截器中实现加1-->
+                        访问量：${visitorNum}
+                        <!--下面是使用第三方插件实现访问量 -->
+                        <%--<script type="text/javascript">--%>
+                            <%--var sc_project = 11378771;--%>
+                            <%--var sc_invisible = 0;--%>
+                            <%--var sc_security = "ef303859";--%>
+                            <%--var sc_text = 2;--%>
+                            <%--var scJsHost = (("https:" == document.location.protocol) ?--%>
+                                <%--"https://secure." : "http://www.");--%>
+                            <%--document.write("<sc" + "ript type='text/javascript' src='" +--%>
+                                <%--scJsHost +--%>
+                                <%--"statcounter.com/counter/counter.js'></" + "script>");--%>
+                        <%--</script>--%>
+                    <%--<noscript>--%>
+                        <%--<div class="statcounter">--%>
+                            <%--<a title="free hitcounter" href="http://statcounter.com/" target="_blank">--%>
+                                <%--<img class="statcounter" src="//c.statcounter.com/11378771/0/ef303859/0/"--%>
+                                     <%--alt="freehit counter">--%>
+                            <%--</a>--%>
+                        <%--</div>--%>
+                    <%--</noscript>--%>
                     </P>
                 </div>
             </div>

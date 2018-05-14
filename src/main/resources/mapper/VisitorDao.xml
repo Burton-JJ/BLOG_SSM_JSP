@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.acodesigner.dao.VisitorDao">
+
+    <select id="getVisitors" resultType="Visitor">
+        SELECT *
+        FROM blog_visitor
+        ORDER BY visitorTime
+    </select>
+
+    <insert id="saveVisitor" parameterType="java.util.List">
+        INSERT
+        INTO blog_visitor(visitorId,visitorIp,visitorTime) VALUES
+            <foreach collection="list" item="visitor"  separator="," >
+                (null,#{visitor.visitorIp},#{visitor.visitorTime})
+            </foreach>
+
+    </insert>
+
+    <select id="getAllNum" resultType="int">
+        SELECT count(*)
+        FROM blog_visitor
+    </select>
+
+</mapper>

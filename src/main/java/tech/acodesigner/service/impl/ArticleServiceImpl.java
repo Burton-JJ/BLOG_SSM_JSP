@@ -110,6 +110,10 @@ public class ArticleServiceImpl implements ArticleService {
             or.setSuccess(true);
             or.setInfo("修改成功");
         }
+        //如果该文章在redis缓存中 在数据库中修改后 在缓存中设置失效
+        if(redisDao.isInCachel(article)){
+            redisDao.setNoUse(article.getArticleId());
+        }
         return or;
     }
 

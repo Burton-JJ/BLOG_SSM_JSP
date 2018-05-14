@@ -27,6 +27,10 @@
     <!--注册拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
+            <mvc:mapping path="/"/>
+            <bean class="tech.acodesigner.interceptor.VisitorInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
             <mvc:mapping path="/manage/**"/>
             <bean class="tech.acodesigner.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>

@@ -62,7 +62,8 @@ public class ManageController {
     //进入管理界面的主界面 可以返回首页 前台
     @RequestMapping(method = RequestMethod.GET)
     public String showManageView(Model model) {
-        model.addAttribute("mainPage", "manageView.jsp");//manageView.返回前台
+        //manageView.返回前台
+        model.addAttribute("mainPage", "manageView.jsp");
         return "manage/manage";
     }
 
@@ -103,13 +104,19 @@ public class ManageController {
 
     //保存新文章 保存修改后文章
     @RequestMapping(value = {"/article/save", "/article/save/{articleId}"}, method = RequestMethod.POST)
-    public String saveArticle(@PathVariable("articleId") Optional<Integer> articleId, HttpServletRequest request, RedirectAttributes attributes) {
-        String title = request.getParameter("title");//文章标题
-        String content = request.getParameter("content");//文章内容
-        String categoryId = request.getParameter("categoryId");//文章类别
-        String image = request.getParameter("image");//文章在首页图片
+    public String saveArticle(@PathVariable("articleId") Optional<Integer> articleId, HttpServletRequest request, ArticleDto articleDto,RedirectAttributes attributes) {
+//        String title = request.getParameter("title");//文章标题
+//        String content = request.getParameter("content");//文章内容
+//        String categoryId = request.getParameter("categoryId");//文章类别
+//        String image = request.getParameter("image");//文章在首页图片
         Article article = new Article(Integer.parseInt(request.getParameter("categoryId")), request.getParameter("title"),
                 request.getParameter("content"), Integer.parseInt(request.getParameter("imageId")));
+//        String title = articleDto.getTitle();
+//        String content = articleDto.getContent();
+//        int categoryId = articleDto.getArticleId();
+//        int imageId = articleDto.getImageId();
+//        Article article = new Article(categoryId, title,
+//               content,imageId);
         OperationResult result = null;
         //若articleId.isPresent()为true 则是保存修改后文章
         if (articleId.isPresent()) {
@@ -117,6 +124,7 @@ public class ManageController {
             article.setClicks(articleService.getArticleById(articleId.get()).getData().getClicks());//这条缺少也可
             article.setArticleId(articleId.get());//关键所在
             result = articleService.updateArticle(article);
+
         } else {
             //添加新文章
             article.setPubDate(new Date(System.currentTimeMillis()));

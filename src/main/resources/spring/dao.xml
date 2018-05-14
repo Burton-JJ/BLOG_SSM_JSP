@@ -50,6 +50,7 @@
         <property name="basePackage" value="tech.acodesigner.dao"/>
     </bean>
 
+
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>

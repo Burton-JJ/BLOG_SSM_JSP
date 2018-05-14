@@ -8,7 +8,8 @@ public class PageUtil {
     private int page;
     private int pageSize;
     private int start;
-    private String factor;//搜寻数据库条件
+    //搜寻数据库条件
+    private String factor;
 
     public PageUtil(int page, int pageSize) {
         this.page = page;
