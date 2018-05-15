@@ -1,5 +1,14 @@
 package tech.acodesigner.service;
 
+/**
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/15 20:10
+ * @param
+ * @return
+ *
+ */
 import tech.acodesigner.dto.OperationResult;
 import tech.acodesigner.entity.Image;
 

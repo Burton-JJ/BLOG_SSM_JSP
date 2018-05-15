@@ -8,7 +8,13 @@ import tech.acodesigner.dto.OperationResult;
 import tech.acodesigner.service.AboutService;
 
 /**
- * Created by 77239 on 2017/4/2/0002.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 @Service
 public class AboutServiceImpl implements AboutService {

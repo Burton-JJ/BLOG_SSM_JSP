@@ -53,7 +53,7 @@
                 </c:forEach>
             </div>
             <form name="uploadForm" method="POST" enctype="multipart/form-data" action="/manage/image/saveUserImage">
-                用户图片:<input type="file" name="Image" size="30"/>
+                用户图片:<input type="file" name="upload" size="30"/>
 
                 <input class="btn btn-primary" type="submit" name="submit" value="上传">
             </form>
@@ -61,7 +61,7 @@
 
             <form name="uploadForm" method="POST" enctype="multipart/form-data" action="/manage/image/saveArticleImage">
 
-                    文章图片:<input type="file" name="Image" size="30"/>
+                    文章图片:<input type="file" name="upload" size="30"/>
                     <input class="btn btn-primary" type="submit" name="submit" value="上传">
             </form>
 

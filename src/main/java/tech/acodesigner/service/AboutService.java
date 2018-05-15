@@ -4,7 +4,13 @@ import tech.acodesigner.dto.AboutDto;
 import tech.acodesigner.dto.OperationResult;
 
 /**
- * Created by 77239 on 2017/4/2/0002.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 public interface AboutService {
 

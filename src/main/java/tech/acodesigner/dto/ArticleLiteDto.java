@@ -1,9 +1,14 @@
 package tech.acodesigner.dto;
 
 import java.util.Date;
-
 /**
- * Created by 77239 on 2017/4/1/0001.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 public class ArticleLiteDto {
 

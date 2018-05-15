@@ -1,10 +1,6 @@
 package tech.acodesigner.web;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.taglibs.standard.lang.jstl.NullLiteral;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,22 +15,28 @@ import tech.acodesigner.dto.CategoryDto;
 import tech.acodesigner.dto.OperationResult;
 import tech.acodesigner.entity.*;
 import tech.acodesigner.service.*;
-import tech.acodesigner.util.ImagesUtil;
+import tech.acodesigner.util.ImageUploadUtil;
 import tech.acodesigner.util.MD5Util;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by 77239 on 2017/4/4/0004.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/15 20:05
+ * @param
+ * @return
+ *
  */
 @SuppressWarnings("Since15")
 @Controller
@@ -320,55 +322,89 @@ public class ManageController {
 
     //对图片的保存  写入本地 webapp/images/user或者article
     @RequestMapping("/image/{savaImage}")
-    public String saveImage(@PathVariable(value = "savaImage") String imageType,@RequestParam(value = "Image",required =false) MultipartFile file,
+    public String saveImage( HttpServletRequest request,HttpServletResponse response,@PathVariable(value = "savaImage") String imageType,@RequestParam(value = "upload",required =false) MultipartFile file,
                             RedirectAttributes attributes){
         //图片存入本地服务器
         String dirPath = "";
-        int type = -1;//图片类型 -1 无意义 0代表用户头像 1 代表首页文章图片
+        int type = -1;//图片类型 -1 无意义 0代表用户头像 1 代表首页文章图片 2 代表文章内容图片
         if(imageType.equals("saveUserImage")){
             //用户图片路径
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\user";//有一个\为转义字符
+            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\user";//有一个\为转义字符
             type = 0;
-        } else{
-            //文章图片路径
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\article";
-            type = 1;
-        }
-
-        File dir = new File(dirPath);
-        //如果文件夹不存在或者不是文件夹 则创建
-        if(!dir.exists()&&!dir.isDirectory()){
-            dir.mkdir();
-        }
-        //得到文件（这里是图片）名  比如123.jpg
-        String originalFilename = file.getOriginalFilename();
-        System.out.println(originalFilename);
-
-        String imgPath = dirPath+"\\"+originalFilename;
-        File dest = new File(imgPath);
-        if(!dest.exists()){
             try {
-                dest.createNewFile();
+                ImageUploadUtil.upload(request, dirPath, file, type, attributes);
+                if(file == null||file.isEmpty()){
+                    System.out.println("不存在");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return "redirect:/manage/image";
+        } else if (imageType.equals("saveArticleImage")){
+            //文章首页图片路径
+            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\article";
+            type = 1;
+            try {
+                ImageUploadUtil.upload(request, dirPath, file, type, attributes);
+                if(file == null||file.isEmpty()){
+                    System.out.println("不存在");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/manage/image";
+        }else {
+            System.out.println("进入文章内容图片上传");
+            //文章内容图片
+            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\article";
+           type = 2;
+            try {
+                System.out.println(file.getContentType());
+                ImageUploadUtil.ckeditor(request, response, dirPath,file,3,attributes);
+
+                if(file == null||file.isEmpty()){
+                    System.out.println("不存在");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
-        //写入图片到指定位置
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        File dir = new File(dirPath);
+//        //如果文件夹不存在或者不是文件夹 则创建
+//        if(!dir.exists()&&!dir.isDirectory()){
+//            dir.mkdir();
+//        }
+//        //得到文件（这里是图片）名  比如123.jpg
+//        String originalFilename = file.getOriginalFilename();
+//        System.out.println(originalFilename);
+//
+//        String imgPath = dirPath+"\\"+originalFilename;
+//        File dest = new File(imgPath);
+//        if(!dest.exists()){
+//            try {
+//                dest.createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        //写入图片到指定位置
+//        try {
+//            file.transferTo(dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        //图片名存入数据库
+//        Image image = new Image(type,originalFilename);
+//        OperationResult result = null;
+//        result = imageService.saveImage(image);
+//        attributes.addFlashAttribute("info", result.getInfo());
 
 
-        //图片名存入数据库
-        Image image = new Image(type,originalFilename);
-        OperationResult result = null;
-        result = imageService.saveImage(image);
-        attributes.addFlashAttribute("info", result.getInfo());
-
-        return "redirect:/manage/image";
     }
 
     //todo 图片删除操作

@@ -9,7 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by 77239 on 2017/4/3/0003.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 public class LoginInterceptor implements HandlerInterceptor {
     @Override

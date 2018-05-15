@@ -15,7 +15,7 @@ import java.util.List;
  * @author: Burton_J
  * @create: 2018-05-08 00:28
  **/
-@Service
+@Service("ImageService")
 public class ImageServiceImpl implements ImageService {
 
     @Autowired

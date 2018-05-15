@@ -7,7 +7,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by 77239 on 2017/2/11/0011.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 public class MD5Util {
     public static String encoderPassword(String s) throws NoSuchAlgorithmException, UnsupportedEncodingException {

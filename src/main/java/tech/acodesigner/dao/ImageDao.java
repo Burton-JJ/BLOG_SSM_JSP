@@ -4,13 +4,15 @@ import tech.acodesigner.entity.Article;
 import tech.acodesigner.entity.Image;
 
 import java.util.List;
-
 /**
- * @program: Blog_SSM
- * @description: 图片
- * @author: Burton_J
- * @create: 2018-05-07 23:45
- **/
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
+ */
 public interface ImageDao {
 
     public int saveImage(Image image);

@@ -1,14 +1,20 @@
 package tech.acodesigner.util;
 
 /**
- * Created by 77239 on 2017/2/19/0019.
+ *
+ * @description
+ * @author Burton
+ * @date 2018/5/11 15:14
+ * @param
+ * @return
+ *
  */
 public class PageUtil {
 
     private int page;
     private int pageSize;
     private int start;
-    //搜寻数据库条件
+    //搜寻数据库条件 在输入框中输入内容进行查询
     private String factor;
 
     public PageUtil(int page, int pageSize) {
