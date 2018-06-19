@@ -84,8 +84,8 @@ public class ImageUploadUtil {
                 dir.mkdirs();
             }
 
-            //完全路劲
-            String imgPath = dirPath + "\\" + originalFilename;
+            //完全路劲 下面的路劲在windows中用“\\” liunx用如下“/”
+            String imgPath = dirPath + "/" + originalFilename;
             // 定义上传路径 .../upload/111112323.jpg
             File dest = new File(imgPath);
             System.out.println("上传的位置：" + imgPath);
@@ -106,7 +106,7 @@ public class ImageUploadUtil {
         ImageService imageService = (ImageService)context.getBean("ImageService");
         Image image = new Image(type,myFileName);
         OperationResult result = null;
-        result =imageService .saveImage(image);
+        result =imageService.saveImage(image);
         attributes.addFlashAttribute("info", result.getInfo());
 
 
@@ -132,10 +132,12 @@ public class ImageUploadUtil {
         // 结合ckeditor功能
         // imageContextPath为图片在服务器地址，如upload/123.jpg,非绝对路径
         // request.getContextPath()得到项目名 例如本项目 得到 /Blog_SSM
-        String imageContextPath = DirectoryName + "\\" + myFileName;
+        //完全路劲 下面的路劲在windows中用“\\” liunx用如下“/”
+        String imageContextPath = DirectoryName + "/" + myFileName;
         String DirectoryName1 = "images/article";
         String imageContextPath1 = request.getContextPath() + "/" + DirectoryName1 + "/" + myFileName;
-        System.out.println(imageContextPath1);
+        System.out.println( " request.getContextPath()="+request.getContextPath());
+        System.out.println("request.getContextPath() + \"/\" + DirectoryName1 + \"/\" + myFileName;="+imageContextPath1);
         //System.out.println(imageContextPath1);
         response.setContentType("text/html;charset=UTF-8");
         String callback = request.getParameter("CKEditorFuncNum");

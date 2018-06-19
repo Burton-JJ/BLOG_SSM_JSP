@@ -326,10 +326,12 @@ public class ManageController {
                             RedirectAttributes attributes){
         //图片存入本地服务器
         String dirPath = "";
+
         int type = -1;//图片类型 -1 无意义 0代表用户头像 1 代表首页文章图片 2 代表文章内容图片
         if(imageType.equals("saveUserImage")){
             //用户图片路径
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\user";//有一个\为转义字符
+            dirPath = request.getSession().getServletContext().getRealPath("/images/user");
+            System.out.println("hhhhhhhhhhhhhhhhhhh"+dirPath);// /有一个\为转义字符
             type = 0;
             try {
                 ImageUploadUtil.upload(request, dirPath, file, type, attributes);
@@ -342,7 +344,8 @@ public class ManageController {
             return "redirect:/manage/image";
         } else if (imageType.equals("saveArticleImage")){
             //文章首页图片路径
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\article";
+            dirPath = request.getSession().getServletContext().getRealPath("/images/article");
+            System.out.println("hhhhhhhhhhhhhhhhhhh"+dirPath);
             type = 1;
             try {
                 ImageUploadUtil.upload(request, dirPath, file, type, attributes);
@@ -356,11 +359,11 @@ public class ManageController {
         }else {
             System.out.println("进入文章内容图片上传");
             //文章内容图片
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\target\\mblog\\images\\article";
+            dirPath = request.getSession().getServletContext().getRealPath("/images/article");
            type = 2;
             try {
                 System.out.println(file.getContentType());
-                ImageUploadUtil.ckeditor(request, response, dirPath,file,3,attributes);
+                ImageUploadUtil.ckeditor(request, response, dirPath,file,type,attributes);
 
                 if(file == null||file.isEmpty()){
                     System.out.println("不存在");
@@ -407,10 +410,10 @@ public class ManageController {
 
     }
 
-    //todo 图片删除操作
+    //图片删除操作
     @RequestMapping("/image/delete/{imageId}")
-    public String deleteImage(@PathVariable(value = "imageId" ) int imageId ,RedirectAttributes attributes){
-
+    public String deleteImage(HttpServletRequest request,@PathVariable(value = "imageId" ) int imageId ,RedirectAttributes attributes){
+        System.out.println("11111111111");
         //得到要删除的图片信息
         Image image = imageService.getImageById(imageId);
         //在数据库中删除
@@ -431,14 +434,19 @@ public class ManageController {
         if(type == 0)
         {
             //用户图片路径 有一个\为转义字符
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\user";
+            //dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\user";
+            //request.getSession().getServletContext().getRealPath("/");取到target/mblog
+            dirPath = request.getSession().getServletContext().getRealPath("/images/user");
+            System.out.println("request.getSession().getServletContext().getRealPath(\"/images/user\")="+dirPath);
+            System.out.println("request.getSession().getServletContext().getRealPath(\"/\")= " +request.getSession().getServletContext().getRealPath("/"));
         } else {
             //文章图片路径
-            dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\article";
+            //dirPath = "E:\\IDEA_files\\blog2\\Blog_SSM\\src\\main\\webapp\\images\\article";
+            dirPath = request.getSession().getServletContext().getRealPath("/images/article");
 
         }
         //图片全路径 比如d:\a\a.jpg
-        String imgPath = dirPath+"\\"+imageName;
+        String imgPath = dirPath+"/"+imageName;
         File f = new File(imgPath);
         //如果图片存在 且可以删除 就删除
         if(f.exists() && f.isFile() && isSuccess){

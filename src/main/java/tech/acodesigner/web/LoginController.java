@@ -11,7 +11,9 @@ import tech.acodesigner.entity.User;
 import tech.acodesigner.service.UserService;
 import tech.acodesigner.util.MD5Util;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -43,19 +45,44 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String checkUser(HttpServletRequest request, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String checkUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attributes) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         HttpSession session = request.getSession();
+
         //破解密码登录后台先不用MD5加密 不然密码不知道
         User user = new User(request.getParameter("username"), MD5Util.encoderPassword(request.getParameter("password")));
         //User user = new User(request.getParameter("username"), request.getParameter("password"));
         OperationResult<UserDto> result = userService.checkUser(user);
         if (result.isSuccess()) {
             session.setAttribute("curUser", result.getData());
+
 //            if (result.getData().getUserType() == 0) {
 //                return "redirect:/blog";
 //            } else {
 //                return "redirect:/manage";
 //            }
+
+            //记住密码功能 cookie实现
+            String isUseCookie = request.getParameter("isUseCookie");
+            System.out.println("记住密码："+isUseCookie);
+            if(isUseCookie!= null){
+                Cookie usernameCookie = new Cookie("username",request.getParameter("username"));
+                Cookie passwordCookie = new Cookie("password",request.getParameter("password"));
+                //有效期10天
+                usernameCookie.setMaxAge(60*60*24*10);
+                passwordCookie.setMaxAge(60*60*24*10);
+//                usernameCookie.setPath("/");
+//                passwordCookie.setPath("/");
+                response.addCookie(usernameCookie);
+                response.addCookie(passwordCookie);
+            } else{
+                Cookie []cookies = request.getCookies();
+                for(Cookie cookie:cookies){
+                    if(cookie.getName().equals("username")||cookie.getName().equals("password")){
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
+                }
+            }
             return "redirect:/manage";
         } else {
             attributes.addFlashAttribute("info", result.getInfo());

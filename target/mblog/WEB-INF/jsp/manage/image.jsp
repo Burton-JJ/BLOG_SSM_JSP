@@ -42,6 +42,7 @@
                 <c:forEach var="articleImage" items="${articleImages}">
                     <div class="carousel-item black-text center card">
                         <div class="card-image">
+                            <!-- src="/" 代表从根衔接 就是target下mblog-->
                             <img src="/images/article/${articleImage.imageName}">
                             <%--<span class="card-title">文章图片：${articleImage}</span>--%>
                             <a class="btn-floating halfway-fab waves-effect waves-light red" href="/manage/image/delete/${articleImage.imageId}"><i class="material-icons" >delete</i></a>

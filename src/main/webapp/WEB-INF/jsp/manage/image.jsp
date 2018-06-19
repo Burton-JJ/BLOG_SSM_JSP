@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 张秦遥
-  Date: 2017/2/22/0022
-  Time: 17:11
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
@@ -42,6 +36,7 @@
                 <c:forEach var="articleImage" items="${articleImages}">
                     <div class="carousel-item black-text center card">
                         <div class="card-image">
+                            <!-- src="/" 代表从根衔接 就是target下mblog-->
                             <img src="/images/article/${articleImage.imageName}">
                             <%--<span class="card-title">文章图片：${articleImage}</span>--%>
                             <a class="btn-floating halfway-fab waves-effect waves-light red" href="/manage/image/delete/${articleImage.imageId}"><i class="material-icons" >delete</i></a>

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 77239
-  Date: 2017/2/16/0016
-  Time: 23:40
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../common/tag.jsp" %>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>

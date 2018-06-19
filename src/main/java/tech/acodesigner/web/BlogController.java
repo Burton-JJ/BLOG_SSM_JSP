@@ -19,6 +19,7 @@ import tech.acodesigner.service.LinkService;
 import tech.acodesigner.util.PageUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +90,10 @@ public class BlogController {
 
         System.out.println("searchOption = "+searchOption);
         System.out.println("total = "+articleTotalNum);
+        //后台java获取编译文件路径
+
+//        String path1 = request.getSession().getServletContext().getRealPath("/images/user");
+//        System.out.println("编译后路径："+path1);
         pageCode = this.genPagination(articleTotalNum, Integer.parseInt(page), pageSize, searchOption);
 
         model.addAttribute("pageCode", pageCode);

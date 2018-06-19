@@ -67,14 +67,14 @@ public class RedisDao {
 //        return result1;
 //    }
 
-    public void updateCachel(ArticleDto article){
-        Jedis jedis = jedisPool.getResource();
-        String key = "article" + article.getArticleId();
-        String key2 = "article2" + article.getArticleId();
-        byte[] bytes = ProtostuffIOUtil.toByteArray(article, schema, LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
-        String result = jedis.setex(key2.getBytes(), 60 * 60, bytes);
-        jedis.expire(key, 5);
-    }
+//    public void updateCachel(ArticleDto article){
+//        Jedis jedis = jedisPool.getResource();
+//        String key = "article" + article.getArticleId();
+//        String key2 = "article2" + article.getArticleId();
+//        byte[] bytes = ProtostuffIOUtil.toByteArray(article, schema, LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
+//        String result = jedis.setex(key2.getBytes(), 60 * 60, bytes);
+//        jedis.expire(key, 5);
+//    }
 
     public boolean isInCachel(Article article){
         Jedis jedis = jedisPool.getResource();

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 77239
-  Date: 2017/2/6/0006
-  Time: 10:02
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../common/tag.jsp" %>
 <html>
@@ -57,25 +51,58 @@
         <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <div class="card-panel hoverable">
             <div class="center-align" style="margin-bottom: 40px">
-                <h4><a href="blog" class="brand-logo indigo-text darken-3">Esieve's Blog</a></h4>
+                <h4><a href="blog" class="brand-logo indigo-text darken-3">Burton's Blog</a></h4>
             </div>
 
             <form id="loginForm" method="post" action="/login/submit" onsubmit="return check()">
+                <%
+                    String username = "";
+                    String password = "";
+                    Cookie[] cookies = request.getCookies();
+                    System.out.println(cookies.length);
+                    if(cookies !=null && cookies.length!= 0){
+                        for(Cookie cookie : cookies){
+
+                            System.out.println("cookie的name和value："+cookie.getName()+"  "+cookie.getValue());
+                            if(cookie.getName().equals("username")){
+                                username = cookie.getValue();
+                                System.out.println("111");
+                                System.out.println("username:"+username);
+                            }
+                            if(cookie.getName().equals("password")){
+                                password = cookie.getValue();
+                            }
+                        }
+                    }
+                %>
                 <div class="input-field">
                     <i class="material-icons prefix">account_circle</i>
-                    <input id="username" name="username" type="text" class="validate">
+                    <input id="username" name="username" type="text" class="validate" value="<%=username%>">
                     <label for="username">用户名</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">lock</i>
-                    <input id="password" name="password" type="password" class="validate">
+                    <input id="password" name="password" type="password" class="validate" value="<%=password%>">
                     <label for="password">密码</label>
                 </div>
+                <div class="switch ">
+                    <label>
+
+                        <input type="checkbox" name="isUseCookie" value="rememberMe">
+                        <span class="lever"></span>
+                        10天内记住密码
+                    </label>
+                </div>
+
                 <div class="center-align">
+
                     <button class="btn waves-effect waves-light hoverable" type="submit" name="action">登录
                         <i class="material-icons right">send</i>
                     </button>
+
                 </div>
+
+
             </form>
         </div>
 

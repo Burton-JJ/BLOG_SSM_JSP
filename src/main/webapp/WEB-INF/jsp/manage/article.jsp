@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 77239
-  Date: 2017/2/16/0016
-  Time: 23:12
-  To change this template use File | Settings | File Templates.
-  后台管理中文章界面
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../common/tag.jsp" %>
 <div class="row">

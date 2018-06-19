@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 77239
-  Date: 2017/2/15/0015
-  Time: 20:37
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">

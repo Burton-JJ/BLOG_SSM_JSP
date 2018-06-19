@@ -153,7 +153,7 @@
                 <p class="grey-text text-lighten-4">
                     如果您有什么建议或者发现了什么bug，可以通过我的邮箱反馈给我<br>
                     <i class="material-icons left">mail</i>
-                    <a href="mailto:zhangqinyao123@gmail.com?subject=反馈">1206610833@qq.com</a>
+                    <a href="mailto:1206610833@qq.com?subject=反馈">1206610833@qq.com</a>
                 </p>
             </div>
             <div class="col l4 offset-l2 s12">
@@ -169,7 +169,7 @@
     </div>
     <div class="footer-copyright indigo darken-4">
         <div class="container">
-            © 2017 Esieve
+            © 2018 Burton
             <a href="https://github.com/codesign-er/Blog/blob/master/LICENSE" target="_blank"
                class="grey-text text-lighten-4 right" href="#!">MIT License</a>
         </div>
